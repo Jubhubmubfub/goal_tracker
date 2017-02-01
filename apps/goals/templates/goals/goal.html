@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Goal</title>
+    {%load staticfiles%}
+    <link rel="stylesheet" href="{%static 'goals/css/goal_styles.css'%}">
+  </head>
+  <body>
+    <div class="banner">
+      <h1>Goal</h1>
+      <div class="progress">
+        Progress
+      </div>
+    </div>
+    <div class="body">
+      <h2>Description: I want to get better at coding by building 10 websites in 3 months</h2>
+      <h2>Time Left: 2 Months</h2>
+      <h2>Last Goal Completed: Build a website Jan 8,2017</h2>
+    </div>
+    <div class="body">
+      <div class="goal-card">
+        <h3>Build Website</h3>
+        <h3>Description: Build a website!</h3>
+        <h2>Finished!</h2>
+        <h3>January 8, 2017</h3>
+        <p>Note: I built www.google.com</p>
+        <a href="#">edit</a>
+      </div>
+      <div class="goal-card">
+        <h3>Build Website</h3>
+        <h3>Description: Build a website!</h3>
+        <h2>Active</h2>
+        <h3>Time left: 4 days</h3>
+        <a href="/goal"><button>Finish</button></a>
+      </div>
+      <div class="goal-card">
+        <h3>Build Website</h3>
+        <h3>Description: Build a website!</h3>
+        <h2>Pending</h2>
+        <a href="/goal"><button>Activate</button></a>
+        <h3></h3>
+        <p></p>
+      </div><br>
+      <a href="/goal"><button>+Add Mini-Goal</button></a>
+    </div>
+  </body>
+</html>

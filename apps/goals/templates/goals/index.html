@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{%static 'goals/css/styles.css'%}">
   </head>
   <body>
-    <form action="/" method="post">
+    <form action="/dashboard" method="post">
       {%csrf_token%}
       Email<input type="text" name="email" value="">
       Password<input type="password" name="password" value="">

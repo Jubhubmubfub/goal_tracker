@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Track New Goal</title>
+    {%load staticfiles%}
+    <link rel="stylesheet" href="{%static 'goals/css/new_goal_styles.css'%}">
+  </head>
+  <body>
+    <div class="banner">
+      <a href="/dashboard"><button>Dashboard</button></a>
+      <a href="/"><button>Logout</button></a>
+      <h1>Track goal</h1>
+    </div>
+    <div class="body">
+      <form action="/dashboard" method="post">
+        {%csrf_token%}
+        Goal: <input type="text" name="goal" value=""><br>
+        Goal Description: <textarea name="description" rows="8" cols="80"></textarea>
+        <br>
+        <br>
+        Mini Goal: <input type="text" name="mini-goal" value=""><br>
+        Description: <textarea name="mini_goal_description" rows="8" cols="80"></textarea><br>
+        Timespan: <select name="time-increment">
+          {% for number in numbers %}
+            <option value="{{number}}">{{ number }}</option>
+          {% endfor %}
+        </select>
+        <select name="time">
+          {% for time in times %}
+            <option value="{{time}}">{{time}}</option>
+          {% endfor %}
+        </select><br>
+        Repeating:
+        Yes<input type="radio" name="repeating" value="Yes">
+        No<input type="radio" name="repeating" value="No"><br>
+        # of Times:
+        <select name="repeat_times">
+        {%for number in numbers2%}
+            <option value="{{number}}">{{number}}</option>
+        {%endfor%}
+      </select>
+        <br>
+        <a href="/"><button>Add mini-goal</button></a>
+      </form>
+    </div>
+  </body>
+</html>
