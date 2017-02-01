@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+    {%load staticfiles%}
+    <link rel="stylesheet" href="{%static 'goals/css/dashboard_styles.css'%}">
+  </head>
+  <body>
+    <div class="header">
+      <h1>Welcome Marcus!</h1>
+    </div>
+    <div class="banner">
+      <h1>Current Goal: Coding 2 Months left</h1>
+      <h3>Last Completed Goal: build a website</h3>
+      <h3>Time since last Completed Goal: 23 hours</h3>
+      <h3>Current Goal: Build a website</h3>
+    </div>
+    <div class="body">
+      <h1>Goals</h1>
+      <div class="card">
+        <h3>Reading</h3>
+        <h4>Time Left: 1 Month</h4>
+        <h4>Current Goal: Read a Book</h4>
+        <div class="progress">
+          <p>Progress Bar</p>
+        </div>
+        <a href="/"><button>Track Goal</button></a>
+      </div>
+      <div class="card">
+        <h3>Coding</h3>
+        <h4>Time Left: 2 Month</h4>
+        <h4>Current Goal: Build a Website</h4>
+        <div class="progress">
+          <p>Progress Bar</p>
+        </div>
+        <a href="/"><button>Track Goal</button></a>
+      </div>
+      <a href="#"><button>Track New Goal</button></a>
+    </div>
+  </body>
+</html>

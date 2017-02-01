@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Goal Tracker</title>
+    {%load staticfiles%}
+    <link rel="stylesheet" href="{%static 'goals/css/styles.css'%}">
+  </head>
+  <body>
+    <form action="/" method="post">
+      {%csrf_token%}
+      Email<input type="text" name="email" value="">
+      Password<input type="password" name="password" value="">
+      <input type="submit" value="Login">
+    </form>
+    <h1>GOAL TRACKER</h1>
+    <div class="banner">
+      BANNER GOES HERE
+    </div>
+    <div class="body">
+    <p>Tracking progress is one of the best ways to accomplish a goal.  With this website you can easily track goals setting and accomplishing mini goals...</p>
+    </div>
+    <div class="footer">
+      <h1>Start Tracking!</h1>
+      <form action="/" method="post">
+        {%csrf_token%}
+        First Name: <input type="text" name="first_name" value="">
+        Last Name: <input type="text" name="last_name" value="">
+        Email: <input type="text" name="email" value="">
+        Password: <input type="password" name="password" value="">
+        Confirm Password: <input type="password" name="pw_confirm" value="">
+        <input type="submit" name="" value="Register">
+      </form>
+    </div>
+  </body>
+</html>
