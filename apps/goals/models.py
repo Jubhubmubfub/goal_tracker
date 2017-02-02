@@ -51,14 +51,18 @@ class UserManager(models.Manager):
         return errors
 
 class GoalManager(models.Manager):
-    def validate_inputs(self, request):
+    def validate_inputs(self, request,extra_minigoals):
         errors = []
         if len(request.POST['name']) < 3:
             errors.append("Please enter a Goal name that is longer than 2 characters")
         if len(request.POST['description']) < 1:
             errors.append("Please enter a description")
         if len(request.POST['mini_name']) < 3:
-            errors.append("You must enter a mini-goal for your Goal")
+            errors.append("You must enter a mini-goal name for your Goal on minigoal #1")
+        if extra_minigoals > 0:
+            for i in range(1,int(extra_minigoals)+1):
+                if len(request.POST['mini_name{}'.format(i)]) < 3:
+                    errors.append("You must enter a mini-goal name for your Goal on minigoal #{}".format(i+1))
         # if len(request.POST['mini_description']) < 3:
         #     errors.append("You must enter a mini-goal description for your Goal")
         return errors

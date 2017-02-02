@@ -30,14 +30,14 @@ def dashboard(request):
             recent = recent[1]
         else:
             recent = {
-                'name':"No goals made yet"
+                'name':"No goals completed yet"
             }
         current = find_current_goal(request)
         if current[0] ==True:
             current = current[1]
         else:
             current = {
-                'name':"No goals made yet"
+                'name':"No goals completed yet"
             }
         # time_since = find_last_completed_time(request)
         context = {
@@ -72,6 +72,13 @@ def goal(request,goal_id):
         goal = Goal.objects.get(id=goal_id)
         minigoals = MiniGoal.objects.filter(goal_id=goal_id)
         times = Time.objects.filter(minigoal__goal_id=goal_id)
+        recent = find_recent_goal2(request,goal_id)
+        if recent[0] == True:
+            recent = recent[1]
+        else:
+            recent = {
+                'name':"No goals completed yet"
+            }
         status = {
             'Pending':"Pending",
             'Active':"Active",
@@ -87,6 +94,7 @@ def goal(request,goal_id):
         context = {
             'status':status,
             'count':count,
+            'recent':recent,
             'total_minigoals':total_minigoals,
             'user':user,
             'goal':goal,
@@ -161,7 +169,21 @@ def print_messages(request, message_list):
 # =========================================================
 
 def find_recent_goal(request):
-    minigoals = MiniGoal.objects.filter(user_id=request.session['user']['id'])
+    minigoals = MiniGoal.objects.filter(user_id=request.session['user']['id']).filter(status="Finished")
+    if len(minigoals) < 1:
+        return (False,"no goals yet")
+    else:
+        most_recent_goal = minigoals[0].finished_at
+        recent = minigoals[0]
+        for minigoal in minigoals:
+            most_recent = minigoal
+            if minigoal.finished_at > most_recent_goal:
+                most_recent_goal = minigoal.finished_at
+                most_recent = minigoal
+            return (True, most_recent)
+
+def find_recent_goal2(request,goal_id):
+    minigoals = MiniGoal.objects.filter(goal_id=goal_id).filter(status="Finished")
     if len(minigoals) < 1:
         return (False,"no goals yet")
     else:
@@ -199,8 +221,8 @@ def find_current_goal(request):
 #                   NEW GOAL PAGE
 # =========================================================
 
-def create_goal(request):
-    errors = Goal.objects.validate_inputs(request)
+def create_goal(request,extra_minigoals):
+    errors = Goal.objects.validate_inputs(request,extra_minigoals)
     if errors:
         print_messages(request,errors)
         return redirect('/new_goal')
@@ -213,14 +235,19 @@ def create_goal(request):
             for i in range(int(request.POST['repeat_times'])):
                 NewMiniGoal = MiniGoal.objects.create(name=request.POST['mini_name'],description=request.POST['mini_description'], goal=newGoal, user=user,status="Pending")
                 Time.objects.create(increment=request.POST['time_increment'],repeat_times=request.POST['repeat_times'],time_type=request.POST['time'],repeating=request.POST['repeating'],minigoal=NewMiniGoal)
-            return redirect('/dashboard')
-
         # create just one minigoal
         else:
             NewMiniGoal = MiniGoal.objects.create(name=request.POST['mini_name'],description=request.POST['mini_description'], goal=newGoal, user=user,status="Pending")
             Time.objects.create(increment=request.POST['time_increment'],repeat_times=request.POST['repeat_times'],time_type=request.POST['time'],repeating=request.POST['repeating'],minigoal=NewMiniGoal)
+            if extra_minigoals > 0:
+                for i in range(1,int(extra_minigoals)+1):
+                    NewMiniGoal = MiniGoal.objects.create(name=request.POST['mini_name{}'.format(i)],description=request.POST['description{}'.format(i)], goal=newGoal, user=user,status="Pending")
+                    Time.objects.create(increment=request.POST['time_increment{}'.format(i)],repeat_times=request.POST['repeat_times{}'.format(i)],time_type=request.POST['time{}'.format(i)],repeating=request.POST['repeating{}'.format(i)],minigoal=NewMiniGoal)
+
+
             return redirect('/dashboard')
 
+        return redirect('/dashboard')
 # =========================================================
 #                       GOAL PAGE
 # =========================================================

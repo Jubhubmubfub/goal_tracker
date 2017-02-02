@@ -30,8 +30,8 @@
     </div>
     <div class="body">
       <h2>Description: {{goal.description}}</h2>
-      <h2>Time Left: 2 Months</h2>
-      <h2>Last Goal Completed: Build a website Jan 8,2017</h2>
+      <!-- <h2>Time Left: 2 Months</h2> -->
+      <h2>Last Goal Completed: {{recent.name}} {{recent.finished_at}}</h2>
     </div>
     <div class="body">
         {%for minigoal in minigoals%}
@@ -68,7 +68,6 @@
         </div>
         {%endfor%}
         <br>
-      <a href="/goal"><button>+Add Mini-Goal</button></a>
     </div>
   </body>
 </html>

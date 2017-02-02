@@ -9,8 +9,11 @@
     <script type="text/javascript">
     $(document).ready(function(){
       //append a new minigoal section
+      var count = 0
       $('#add_minigoal').click(function(){
-        $('#minigoals').append('<br>Goal:');
+        count = count+1
+        $('#minigoals').append('<br>MiniGoal: <input type="text" name="mini_name'+count+'" value=""><br>Description: <textarea name="description'+count+'" rows="8" cols="80"></textarea><br>Timespan: <select name="time_increment'+count+'">{% for number in numbers %}<option value="{{number}}">{{ number }}</option>{% endfor %}</select><select name="time'+count+'">{% for time in times %}<option value="{{time}}">{{time}}</option>{% endfor %}</select><br>Repeating: Yes<input type="radio" name="repeating'+count+'" value="Yes">No<input type="radio" name="repeating'+count+'" value="No" checked="checked"><br># of Times:<select name="repeat_times'+count+'">{%for number in numbers2%}<option value="{{number}}">{{number}}</option>{%endfor%}</select><br>');
+      $('#form').attr('action','/create_goal/'+count)
       });
     });
     </script>
@@ -22,7 +25,7 @@
       <h1>Track goal</h1>
     </div>
     <div class="body">
-      <form action="/create_goal" method="post">
+      <form id='form' action="/create_goal/0" method="post">
         {%csrf_token%}
         {%if messages%}
           {%for message in messages%}

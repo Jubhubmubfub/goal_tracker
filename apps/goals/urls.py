@@ -10,7 +10,7 @@ urlpatterns = [
     url(r'^register$', views.register),
     url(r'^dashboard$', views.dashboard),
     url(r'^new_goal$', views.new_goal),
-    url(r'^create_goal$', views.create_goal),
+    url(r'^create_goal/(?P<extra_minigoals>\d+)$', views.create_goal),
     url(r'^goal/(?P<goal_id>\d+)$', views.goal),
     url(r'^delete_goal/(?P<goal_id>\d+)$', views.delete_goal),
     url(r'^destroy_goal/(?P<goal_id>\d+)$', views.destroy_goal),
