@@ -8,7 +8,17 @@
   </head>
   <body>
     <div class="banner">
-
+      <a href="/dashboard"><button>Dashboard</button></a>
+      <a href="/logout"><button>Logout</button></a>
+      <h1>{{request.session.user.first_name}}'s Goal Log</h1>
+    </div>
+    <div class="body">
+      <div class="goal_log">
+        {%for minigoal in minigoals%}
+          {%if minigoal.status == finished.Finished%}
+            <a href="/goal/{{minigoal.goal.id}}"><p>{{minigoal.name}} {{minigoal.finished_at}}</p></a>
+          {%endif%}
+        {%endfor%}
     </div>
   </body>
 </html>

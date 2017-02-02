@@ -2,7 +2,10 @@
   padding:0px;
   margin:0px
 }
-
+.header {
+  width: 100%;
+  background-color:darkgreen;
+}
 .banner {
   width:100%;
   height:200px;

@@ -40,8 +40,12 @@
   display:inline-block
 }
 
-.progress {
+.progress-bar {
   width: 90%;
   height: 20px;
   background-color:purple;
+}
+.progress {
+  height: 20px;
+  background-color:orange;
 }

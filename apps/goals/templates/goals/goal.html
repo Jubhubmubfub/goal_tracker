@@ -8,40 +8,49 @@
   </head>
   <body>
     <div class="banner">
-      <h1>Goal</h1>
-      <div class="progress">
-        Progress
+      <a href="/dashboard"><button>Dashboard</button></a>
+      <a href="/logout"><button>Logout</button></a>
+      <h1>{{goal.name}}</h1>
+      <div class="progress-bar">
+        <div style="width:{{goal.progress}}%"class="progress">
+        </div>
       </div>
+      Progress: {{goal.progress}}% Complete<br>
+      <a href="/goal_log"><button>goal log</button></a>
     </div>
     <div class="body">
-      <h2>Description: I want to get better at coding by building 10 websites in 3 months</h2>
+      <h2>Description: {{goal.description}}</h2>
       <h2>Time Left: 2 Months</h2>
       <h2>Last Goal Completed: Build a website Jan 8,2017</h2>
     </div>
     <div class="body">
-      <div class="goal-card">
-        <h3>Build Website</h3>
-        <h3>Description: Build a website!</h3>
-        <h2>Finished!</h2>
-        <h3>January 8, 2017</h3>
-        <p>Note: I built www.google.com</p>
-        <a href="#">edit</a>
-      </div>
-      <div class="goal-card">
-        <h3>Build Website</h3>
-        <h3>Description: Build a website!</h3>
-        <h2>Active</h2>
-        <h3>Time left: 4 days</h3>
-        <a href="/goal"><button>Finish</button></a>
-      </div>
-      <div class="goal-card">
-        <h3>Build Website</h3>
-        <h3>Description: Build a website!</h3>
-        <h2>Pending</h2>
-        <a href="/goal"><button>Activate</button></a>
-        <h3></h3>
-        <p></p>
-      </div><br>
+        {%for minigoal in minigoals%}
+        <div class="goal-card">
+          <h3>{{minigoal.name}}</h3>
+          <h3>Description: {{minigoal.description}}</h3>
+          {%if minigoal.status == status.Pending%}
+          <h2>{{minigoal.status}}</h2>
+            <a href="/update/{{goal.id}}/{{minigoal.id}}/Activate"><button>Activate</button></a>
+          {%endif%}
+          {%if minigoal.status == status.Active%}
+          <h2>{{minigoal.status}}</h2>
+            <p>Started: {{minigoal.started_at}}</p>
+            <form action="/update/{{goal.id}}/{{minigoal.id}}/Finish" method="post">
+              {%csrf_token%}
+              Note: <br><textarea name='note' rows="4" cols="40"></textarea><br>
+              <input type="submit" name="" value="Finish">
+            </form>
+
+          {%endif%}
+          {%if minigoal.status == status.Finished%}
+          <h2>{{minigoal.status}}!</h2>
+            {{minigoal.finished_at}}
+            <br>
+            {{minigoal.note}}
+          {%endif%}
+        </div>
+        {%endfor%}
+        <br>
       <a href="/goal"><button>+Add Mini-Goal</button></a>
     </div>
   </body>

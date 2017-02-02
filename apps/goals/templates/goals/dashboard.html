@@ -8,36 +8,42 @@
   </head>
   <body>
     <div class="header">
-      <a href="/"><button>Logout</button></a>
-      <h1>Welcome Marcus!</h1>
+      <a href="/logout"><button>Logout</button></a>
+      {%if messages%}
+        {%for message in messages%}
+          <span style="color:green">{{message}}</span>
+        {%endfor%}
+      {%endif%}
+      <h1>Welcome {{request.session.user.first_name}}!</h1>
     </div>
     <div class="banner">
-      <h1>Current Goal: Coding 2 Months left</h1>
-      <h3>Last Completed Goal: build a website</h3>
+      <h1>Current Goal: {{recent.goal.name}}</h1>
+      <h3>Last Completed Goal: {{recent.name}}</h3>
       <h3>Time since last Completed Goal: 23 hours</h3>
-      <h3>Current Goal: Build a website</h3>
+      <h3>Current Goal: {{current.name}}</h3>
+      <a href="/goal_log"><button>Goal Log</button></a>
     </div>
     <div class="body">
       <h1>Goals</h1>
+
+      {%for goal in goals%}
       <div class="card">
-        <h3>Reading</h3>
-        <h4>Time Left: 1 Month</h4>
-        <h4>Current Goal: Read a Book</h4>
-        <div class="progress">
-          <p>Progress Bar</p>
+        {{goal}}
+        {{goal.name}}<br>
+        {{goal.description}}<br>
+        Current Goal: {{minigoals.0.name}}
+      <div class="progress-bar">
+        <div style="width:{{goal.progress}}%" class="progress">
+          <p>{{goal.progress}}%Complete</p>
         </div>
-        <a href="/"><button>Track Goal</button></a>
-      </div>
-      <div class="card">
-        <h3>Coding</h3>
-        <h4>Time Left: 2 Month</h4>
-        <h4>Current Goal: Build a Website</h4>
-        <div class="progress">
-          <p>Progress Bar</p>
-        </div>
-        <a href="/"><button>Track Goal</button></a>
-      </div>
+      </div><br>
+      <a href="/goal/{{goal.id}}"><button>Track Goal</button></a>
+    </div>
+      {%endfor%}
+      <br>
+
       <a href="/new_goal"><button>Track New Goal</button></a>
     </div>
+
   </body>
 </html>

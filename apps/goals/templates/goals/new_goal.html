@@ -9,19 +9,24 @@
   <body>
     <div class="banner">
       <a href="/dashboard"><button>Dashboard</button></a>
-      <a href="/"><button>Logout</button></a>
+      <a href="/logout"><button>Logout</button></a>
       <h1>Track goal</h1>
     </div>
     <div class="body">
-      <form action="/dashboard" method="post">
+      <form action="/create_goal" method="post">
         {%csrf_token%}
-        Goal: <input type="text" name="goal" value=""><br>
+        {%if messages%}
+          {%for message in messages%}
+          <span style='color:red'>{{message}}</span><br>
+          {%endfor%}
+        {%endif%}
+        Goal: <input type="text" name="name" value=""><br>
         Goal Description: <textarea name="description" rows="8" cols="80"></textarea>
         <br>
         <br>
-        Mini Goal: <input type="text" name="mini-goal" value=""><br>
-        Description: <textarea name="mini_goal_description" rows="8" cols="80"></textarea><br>
-        Timespan: <select name="time-increment">
+        Mini Goal: <input type="text" name="mini_name" value=""><br>
+        Description: <textarea name="mini_description" rows="8" cols="80"></textarea><br>
+        Timespan: <select name="time_increment">
           {% for number in numbers %}
             <option value="{{number}}">{{ number }}</option>
           {% endfor %}
@@ -33,7 +38,7 @@
         </select><br>
         Repeating:
         Yes<input type="radio" name="repeating" value="Yes">
-        No<input type="radio" name="repeating" value="No"><br>
+        No<input type="radio" name="repeating" value="No" checked="checked"><br>
         # of Times:
         <select name="repeat_times">
         {%for number in numbers2%}
@@ -41,7 +46,8 @@
         {%endfor%}
       </select>
         <br>
-        <a href="/"><button>Add mini-goal</button></a>
+        <a href="/"><button>Add mini-goal</button></a><br><br>
+        <input type="submit" name="" value="Track Goal!">
       </form>
     </div>
   </body>

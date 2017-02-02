@@ -7,14 +7,21 @@
     <link rel="stylesheet" href="{%static 'goals/css/styles.css'%}">
   </head>
   <body>
-    <form action="/dashboard" method="post">
-      {%csrf_token%}
-      Email<input type="text" name="email" value="">
-      Password<input type="password" name="password" value="">
-      <input type="submit" value="Login">
-    </form>
-    <h1>GOAL TRACKER</h1>
+    <div class="header">
+      {%if messages%}
+        {%for message in messages%}
+          <span style="color:red">{{message}}<br></span>
+        {%endfor%}
+      {%endif%}
+      <form action="/login" method="post">
+        {%csrf_token%}
+        Email<input type="text" name="email" value="">
+        Password<input type="password" name="password" value="">
+        <input type="submit" value="Login">
+      </form>
+    </div>
     <div class="banner">
+      <h1>GOAL TRACKER</h1>
       BANNER GOES HERE
     </div>
     <div class="body">
@@ -22,13 +29,13 @@
     </div>
     <div class="footer">
       <h1>Start Tracking!</h1>
-      <form action="/" method="post">
+      <form action="/register" method="post">
         {%csrf_token%}
         First Name: <input type="text" name="first_name" value="">
         Last Name: <input type="text" name="last_name" value="">
-        Email: <input type="text" name="email" value="">
+        Email: <input type="text" name="email" value=""><br>
         Password: <input type="password" name="password" value="">
-        Confirm Password: <input type="password" name="pw_confirm" value="">
+        Confirm Password: <input type="password" name="confirm_pw" value=""><br>
         <input type="submit" name="" value="Register">
       </form>
     </div>
