@@ -59,8 +59,8 @@ class GoalManager(models.Manager):
             errors.append("Please enter a description")
         if len(request.POST['mini_name']) < 3:
             errors.append("You must enter a mini-goal for your Goal")
-        if len(request.POST['mini_description']) < 3:
-            errors.append("You must enter a mini-goal for your Goal")
+        # if len(request.POST['mini_description']) < 3:
+        #     errors.append("You must enter a mini-goal description for your Goal")
         return errors
 
 class User(models.Model):

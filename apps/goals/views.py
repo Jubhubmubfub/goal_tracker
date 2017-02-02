@@ -107,6 +107,13 @@ def goal_log(request):
         }
         return render(request, 'goals/goal_log.html',context)
 
+def delete_goal(request,goal_id):
+    goal = Goal.objects.get(id=goal_id)
+    context = {
+        'goal':goal
+    }
+    return render(request, 'goals/delete_goal.html',context)
+
 # =========================================================
 #                   LOGIN AND REGISTRATION
 # =========================================================
@@ -185,7 +192,7 @@ def find_current_goal(request):
 
 
 # =========================================================
-#                  TRACK NEW GOAL PAGE
+#                   NEW GOAL PAGE
 # =========================================================
 
 def create_goal(request):
@@ -229,3 +236,16 @@ def update(request,goal_id,minigoal_id,update):
         minigoal.started_at = datetime.now()
         minigoal.save()
         return redirect('/goal/{}'.format(goal_id))
+    elif update=="note":
+        minigoal = MiniGoal.objects.get(id=minigoal_id)
+        minigoal.note = request.POST['note']
+        minigoal.save()
+        return redirect('/goal/{}'.format(goal_id))
+
+# =========================================================
+#                       DELETE GOAL
+# =========================================================
+
+def destroy_goal(request,goal_id):
+    Goal.objects.get(id=goal_id).delete()
+    return redirect('/dashboard')

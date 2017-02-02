@@ -5,6 +5,16 @@
     <title>Goal</title>
     {%load staticfiles%}
     <link rel="stylesheet" href="{%static 'goals/css/goal_styles.css'%}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+      $('#note').hide()
+      $('#edit').click(function(e){
+        e.preventDefault();
+        $('#note').toggle("slow");
+      });
+    });
+    </script>
   </head>
   <body>
     <div class="banner">
@@ -35,11 +45,13 @@
           {%if minigoal.status == status.Active%}
           <h2>{{minigoal.status}}</h2>
             <p>Started: {{minigoal.started_at}}</p>
+            Note:
             <form action="/update/{{goal.id}}/{{minigoal.id}}/Finish" method="post">
               {%csrf_token%}
-              Note: <br><textarea name='note' rows="4" cols="40"></textarea><br>
+               <textarea name='note' rows="4" cols="30">{{minigoal.note}}</textarea>
               <input type="submit" name="" value="Finish">
             </form>
+
 
           {%endif%}
           {%if minigoal.status == status.Finished%}
@@ -47,7 +59,12 @@
             {{minigoal.finished_at}}
             <br>
             {{minigoal.note}}
+            <a id='edit' href="/goal/{{goal.id}}"><button>edit</button></a>
+            <form action="index.html" method="post">
+              <textarea id='note' name="note" rows="3" cols="30"></textarea>
+            </form>
           {%endif%}
+            <br>
         </div>
         {%endfor%}
         <br>

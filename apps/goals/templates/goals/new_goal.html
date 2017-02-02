@@ -5,6 +5,15 @@
     <title>Track New Goal</title>
     {%load staticfiles%}
     <link rel="stylesheet" href="{%static 'goals/css/new_goal_styles.css'%}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+      //append a new minigoal section
+      $('#add_minigoal').click(function(){
+        $('#minigoals').append('<br>Goal:');
+      });
+    });
+    </script>
   </head>
   <body>
     <div class="banner">
@@ -24,29 +33,31 @@
         Goal Description: <textarea name="description" rows="8" cols="80"></textarea>
         <br>
         <br>
-        Mini Goal: <input type="text" name="mini_name" value=""><br>
-        Description: <textarea name="mini_description" rows="8" cols="80"></textarea><br>
-        Timespan: <select name="time_increment">
-          {% for number in numbers %}
-            <option value="{{number}}">{{ number }}</option>
-          {% endfor %}
-        </select>
-        <select name="time">
-          {% for time in times %}
-            <option value="{{time}}">{{time}}</option>
-          {% endfor %}
-        </select><br>
-        Repeating:
-        Yes<input type="radio" name="repeating" value="Yes">
-        No<input type="radio" name="repeating" value="No" checked="checked"><br>
-        # of Times:
-        <select name="repeat_times">
-        {%for number in numbers2%}
-            <option value="{{number}}">{{number}}</option>
-        {%endfor%}
-      </select>
+        <div id='minigoals'>
+          Mini Goal: <input type="text" name="mini_name" value=""><br>
+          Description: <textarea name="mini_description" rows="8" cols="80"></textarea><br>
+          Timespan: <select name="time_increment">
+            {% for number in numbers %}
+              <option value="{{number}}">{{ number }}</option>
+            {% endfor %}
+          </select>
+          <select name="time">
+            {% for time in times %}
+              <option value="{{time}}">{{time}}</option>
+            {% endfor %}
+          </select><br>
+          Repeating:
+          Yes<input type="radio" name="repeating" value="Yes">
+          No<input type="radio" name="repeating" value="No" checked="checked"><br>
+          # of Times:
+          <select name="repeat_times">
+          {%for number in numbers2%}
+              <option value="{{number}}">{{number}}</option>
+          {%endfor%}
+          </select>
+        </div>
         <br>
-        <a href="/"><button>Add mini-goal</button></a><br><br>
+        <button type='button' id="add_minigoal">Add mini-goal</button><br><br>
         <input type="submit" name="" value="Track Goal!">
       </form>
     </div>
