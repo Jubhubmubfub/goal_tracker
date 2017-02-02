@@ -12,6 +12,10 @@ from datetime import datetime
 
 def index(request):
     return render(request,'goals/index.html')
+def index2(request):
+    return render(request,'goals/index2.html')
+def index3(request):
+    return render(request,'goals/index3.html')
 
 def dashboard(request):
     if 'user' not in request.session:

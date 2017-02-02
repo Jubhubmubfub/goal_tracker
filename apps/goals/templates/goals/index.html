@@ -1,43 +1,148 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Goal Tracker</title>
-    {%load staticfiles%}
-    <link rel="stylesheet" href="{%static 'goals/css/styles.css'%}">
-  </head>
-  <body>
-    <div class="header">
-      {%if messages%}
-        {%for message in messages%}
-          <span style="color:red">{{message}}<br></span>
-        {%endfor%}
-      {%endif%}
-      <form action="/login" method="post">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Goal Tracker</title>
+
+  <!-- CSS  -->
+  {% load staticfiles %}
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{% static 'goals/css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{% static 'goals/css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+  <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Goal Tracker</a>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="section">
+        <form class="col" action="/login" method="post">
+            {%csrf_token%}
+            <div class="row">
+                <div class="input-field col s5">
+                    <i class="material-icons prefix">email</i>
+                    <input id="icon_prefix" type="email" name="email" class="validate">
+                    <label for="icon_prefix">Email</label>
+                </div>
+                <div class="input-field col s5">
+                    <i class="material-icons prefix">vpn_key</i>
+                    <input id="icon_telephone" name="password" type="password" class="validate">
+                    <label for="icon_telephone">Password</label>
+                </div>
+                <div class="col">
+                    <input class="waves-effect waves-light btn" style="margin-top: 25px;" type="submit" value="Login">
+                </div>
+            </div>
+        </form>
+        {%if messages%}
+          {%for message in messages%}
+            <span class="red-text text-lighten-3">{{message}}<br></span>
+          {%endfor%}
+        {%endif%}
+    </div>
+    </div>
+
+  <div class="blue">
+
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <h1 class="header center orange-text">Track Yours Goals Today</h1>
+    </div>
+  </div>
+
+
+  <div class="container">
+    <div class="section">
+
+      <!--   Icon Section   -->
+      <div class="row">
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="material-icons">flash_on</i></h2>
+            <h5 class="center">Speeds up development</h5>
+
+            <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
+            <h5 class="center">User Experience Focused</h5>
+
+            <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="material-icons">settings</i></h2>
+            <h5 class="center">Easy to work with</h5>
+
+            <p class="light">We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about Materialize.</p>
+          </div>
+        </div>
+      </div>
+      <div class="row center">
+        <h5 class="header col s12 light">Sign up below</h5>
+      </div>
+    </div>
+</div>
+</div>
+
+  <footer class="page-footer white">
+      <div class="section no-pad-bot" id="index-banner">
+          <h2 class="header center green-text">Register Now</h2>
+      </div>
+      <div class="row">
+
+    <form class="col s12" action="/register" method="post">
         {%csrf_token%}
-        Email<input type="text" name="email" value="">
-        Password<input type="password" name="password" value="">
-        <input type="submit" value="Login">
-      </form>
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="first_name" type="text" name="first_name" class="validate">
+          <label for="first_name">First Name</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="last_name" type="text" name="last_name" class="validate">
+          <label for="last_name">Last Name</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="email" type="email" name="email" class="validate">
+          <label for="email">Email</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="password" name="password" type="password" class="validate">
+          <label for="password">Password</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="password" name="confirm_pw" type="password" class="validate">
+          <label for="password">Confirm Password</label>
+        </div>
+      </div>
+      <div class="row center">
+          <button type="submit" class="waves-effect waves-light btn" name="button">Register</button>
+      </div>
+    </form>
+  </div>
+    <div class="footer-copyright">
+      <div class="container">
+      Made by <span class="orange-text text-lighten-3">Marcus Sakoda</span>
+      </div>
     </div>
-    <div class="banner">
-      <h1>GOAL TRACKER</h1>
-      BANNER GOES HERE
-    </div>
-    <div class="body">
-    <p>Tracking progress is one of the best ways to accomplish a goal.  With this website you can easily track goals setting and accomplishing mini goals...</p>
-    </div>
-    <div class="footer">
-      <h1>Start Tracking!</h1>
-      <form action="/register" method="post">
-        {%csrf_token%}
-        First Name: <input type="text" name="first_name" value="">
-        Last Name: <input type="text" name="last_name" value="">
-        Email: <input type="text" name="email" value=""><br>
-        Password: <input type="password" name="password" value="">
-        Confirm Password: <input type="password" name="confirm_pw" value=""><br>
-        <input type="submit" name="" value="Register">
-      </form>
-    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="{% static 'goals/js/materialize.js' %}"></script>
+  <script src="{% static 'gaols/js/init.js' %}"></script>
+
   </body>
 </html>
