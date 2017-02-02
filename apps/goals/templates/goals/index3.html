@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+
     <title>Goal Tracker</title>
     {%load staticfiles%}
     <link rel="stylesheet" href="{%static 'goals/css/styles.css'%}">
@@ -13,6 +14,7 @@
           <span style="color:red">{{message}}<br></span>
         {%endfor%}
       {%endif%}
+      <h1>I made some  changes</h1>
       <form action="/login" method="post">
         {%csrf_token%}
         Email<input type="text" name="email" value="">
