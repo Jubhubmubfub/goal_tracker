@@ -22,9 +22,9 @@
       </div>
     </nav>
 
-    <div class="blue">
+    <div style="height:1000px;"class="blue">
+      <a href="/logout"class="waves-effect waves-light btn right"><i class="small material-icons left">trending_down</i>Log out</a>
     <a href="/goal_log" class="waves-effect waves-light btn"><i class="large material-icons left">list</i>Goal Log</a>
-    <a href="/logout"class="waves-effect waves-light btn right"><i class="large material-icons left">trending_down</i>Log out</a>
 
       {%if messages%}
         {%for message in messages%}
@@ -33,9 +33,9 @@
       {%endif%}
 
       <h1>Current Goal: {{recent.goal.name}}</h1>
-      <h3>Last Completed Goal: {{recent.name}}</h3>
+      <h3>Last Completed Milestone: {{recent.name}}</h3>
       <!-- <h3>Time since last Completed Goal: 23 hours</h3> -->
-      <h3>Current Goal: {{current.name}}</h3>
+      <h3>Current Milestone: {{current.name}}</h3>
       <h1>Goals</h1>
 
 
@@ -58,9 +58,9 @@
             </div>
           {%endfor%}
         </div>
+        <a style="margin-bottom:50px;" href="/new_goal" class="waves-effect waves-light btn left"><i class="large material-icons left">library_add</i>Track New Goal</a>
       </div>
 
-      <a href="/new_goal"><button>Track New Goal</button></a>
     </div>
   </div>
 
