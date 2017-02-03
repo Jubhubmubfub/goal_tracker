@@ -19,7 +19,7 @@
       var count = 0
       $('#add_minigoal').click(function(){
         count = count+1
-        $('#minigoals').append('<div class="row"><div class="input-field col s6"><input type="text" name="mini_name'+count+'" class="validate"><label for="first_name">MiniGoal</label></div></div><div class="row"><div class="input-field col s12"><textarea id="description" name="mini_description'+count+'" class="materialize-textarea"></textarea><label>MiniGoal Description (Optional)</label></div></div><label>TimeSpan</label><br><div class="input-field col s1"><select class="browser-default" name="time_increment'+count+'">{%for number in numbers%}<option value="{{number}}">{{number}}</option>{%endfor%}</select></div><div class="input-field col s2"><select class="browser-default" name="time'+count+'">{%for time in times%}<option value="{{time}}">{{time}}</option>{%endfor%}</select></div><div class="row"><div class="input-field col s12"><label for="">Repeating?</label><div class="input-field col s12"><br><p><input type="radio" name="repeating'+count+'"  id="test1'+count+'"/><label for="test1'+count+'">Yes</label></p><p><input type="radio" name="repeating'+count+'" checked="checked" id="test2'+count+'"/><label for="test2'+count+'">No</label></p></div></div><br><br><label># of times</label><br><div class="input-field col s1"><select class="browser-default" name="repeat_times'+count+'">{%for number in numbers2%}<option value="{{number}}">{{number}}</option>{%endfor%}</select></div></div>');
+        $('#minigoals').append('<div class="row"><div class="input-field col s6"><input type="text" name="mini_name'+count+'" class="validate"><label for="first_name">MiniGoal</label></div></div><div class="row"><div class="input-field col s12"><textarea id="description" name="mini_description'+count+'" class="materialize-textarea"></textarea><label>MiniGoal Description (Optional)</label></div></div><label>TimeSpan</label><br><div class="input-field col s1"><select class="browser-default" name="time_increment'+count+'">{%for number in numbers%}<option value="{{number}}">{{number}}</option>{%endfor%}</select></div><div class="input-field col s2"><select class="browser-default" name="time'+count+'">{%for time in times%}<option value="{{time}}">{{time}}</option>{%endfor%}</select></div><div class="row"><div class="input-field col s12"><label for="">Repeating?</label><div class="input-field col s12"><br><p><input type="radio" value="Yes" name="repeating'+count+'"  id="test1'+count+'"/><label for="test1'+count+'">Yes</label></p><p><input type="radio" value="No" name="repeating'+count+'" checked="checked" id="test2'+count+'"/><label for="test2'+count+'">No</label></p></div></div><br><br><label># of times</label><br><div class="input-field col s1"><select class="browser-default" name="repeat_times'+count+'">{%for number in numbers2%}<option value="{{number}}">{{number}}</option>{%endfor%}</select></div></div>');
 
       $('#form').attr('action','/create_goal/'+count)
       });
@@ -97,11 +97,11 @@
                       <div class="input-field col s12">
                         <br>
                       <p>
-                        <input type="radio" name="repeating" id="test1" />
+                        <input type="radio" name="repeating" value="Yes" id="test1" />
                         <label for="test1">Yes</label>
                       </p>
                       <p>
-                        <input type="radio" name="repeating" checked='checked' id="test2"/>
+                        <input type="radio" name="repeating" value="No" checked='checked' id="test2"/>
                         <label for="test2">No</label>
                       </p>
                     </div>

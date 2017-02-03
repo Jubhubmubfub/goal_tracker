@@ -222,6 +222,7 @@ def find_current_goal(request):
 # =========================================================
 
 def create_goal(request,extra_minigoals):
+    print "CREATE GOAL IS HAPPENING"
     errors = Goal.objects.validate_inputs(request,extra_minigoals)
     if errors:
         print_messages(request,errors)
@@ -237,17 +238,24 @@ def create_goal(request,extra_minigoals):
                 Time.objects.create(increment=request.POST['time_increment'],repeat_times=request.POST['repeat_times'],time_type=request.POST['time'],repeating=request.POST['repeating'],minigoal=NewMiniGoal)
         # create just one minigoal
         else:
+            print "first else is happning"
             NewMiniGoal = MiniGoal.objects.create(name=request.POST['mini_name'],description=request.POST['mini_description'], goal=newGoal, user=user,status="Pending")
             Time.objects.create(increment=request.POST['time_increment'],repeat_times=request.POST['repeat_times'],time_type=request.POST['time'],repeating=request.POST['repeating'],minigoal=NewMiniGoal)
-            if extra_minigoals > 0:
-                for i in range(1,int(extra_minigoals)+1):
+        if extra_minigoals > 0:
+            print "THERE ARE EXTRA MINIGOALS====> ",extra_minigoals
+            for i in range(1,int(extra_minigoals)+1):
+                print "i is now===> ",i
+                if request.POST['repeating{}'.format(i)] == "Yes":
+                    print "IT WAS REPEATING!"
+                    for j in range(int(request.POST['repeat_times{}'.format(i)])):
+                        NewMiniGoal = MiniGoal.objects.create(name=request.POST['mini_name{}'.format(i)],description=request.POST['mini_description{}'.format(i)], goal=newGoal, user=user,status="Pending")
+                        Time.objects.create(increment=request.POST['time_increment{}'.format(i)],repeat_times=request.POST['repeat_times{}'.format(i)],time_type=request.POST['time{}'.format(i)],repeating=request.POST['repeating{}'.format(i)],minigoal=NewMiniGoal)
+                else:
+                    print "ELSE IS HAPPENING, REPEATING WAS NOT YES"
                     NewMiniGoal = MiniGoal.objects.create(name=request.POST['mini_name{}'.format(i)],description=request.POST['mini_description{}'.format(i)], goal=newGoal, user=user,status="Pending")
                     Time.objects.create(increment=request.POST['time_increment{}'.format(i)],repeat_times=request.POST['repeat_times{}'.format(i)],time_type=request.POST['time{}'.format(i)],repeating=request.POST['repeating{}'.format(i)],minigoal=NewMiniGoal)
-
-
-            return redirect('/dashboard')
-
         return redirect('/dashboard')
+        
 # =========================================================
 #                       GOAL PAGE
 # =========================================================

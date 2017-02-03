@@ -63,44 +63,42 @@
     </div>
     <div class="cyan">
       <div class="container">
-
-
       <p class="">Minigoals</p>
-        {%for minigoal in minigoals%}
-        <div class=" blue card-panel hoverable">
-          <h5>{{minigoal.name}}</h5>
-          <h5>Description: {{minigoal.description}}</h5>
-          {%if minigoal.status == status.Pending%}
-          <h5>{{minigoal.status}}</h5>
-            <a href="/update/{{goal.id}}/{{minigoal.id}}/Activate"class="waves-effect waves-light btn left"><i class="large material-icons left">play_arrow</i>Activate</a>
-          {%endif%}
-          {%if minigoal.status == status.Active%}
-          <h5>{{minigoal.status}}</h5>
-            <p>Started: {{minigoal.started_at}}</p>
-            Note:
-            <form action="/update/{{goal.id}}/{{minigoal.id}}/Finish" method="post">
-              {%csrf_token%}
-               <textarea name='note' rows="4" cols="30">{{minigoal.note}}</textarea>
-               <button class="btn waves-effect waves-light" type="submit" name="action">Finish
-                  <i class="material-icons right">done</i>
-                </button>
-            </form>
-
-
-          {%endif%}
-          {%if minigoal.status == status.Finished%}
-          <h5>{{minigoal.status}}!<i class="material-icons left">done</i></h5> 
-            {{minigoal.finished_at}}
-            <br>
-            {{minigoal.note}}
-            <!-- <a id='edit' href="/goal/{{goal.id}}"><button>edit</button></a>
-            <form action="index.html" method="post">
-              <textarea id='note' name="note" rows="3" cols="30"></textarea>
-            </form> -->
-          {%endif%}
-            <br>
+        <div class="row">
+          {%for minigoal in minigoals%}
+          <div class="col s3 blue card-panel hoverable ">
+            <h5>{{minigoal.name}}</h5>
+            <h5>Description: {{minigoal.description}}</h5>
+            {%if minigoal.status == status.Pending%}
+            <h5>{{minigoal.status}}</h5>
+              <a href="/update/{{goal.id}}/{{minigoal.id}}/Activate"class="waves-effect waves-light btn left"><i class="large material-icons left">play_arrow</i>Activate</a>
+            {%endif%}
+            {%if minigoal.status == status.Active%}
+            <h5>{{minigoal.status}}</h5>
+              <p>Started: {{minigoal.started_at}}</p>
+              Note:
+              <form action="/update/{{goal.id}}/{{minigoal.id}}/Finish" method="post">
+                {%csrf_token%}
+                 <textarea name='note' rows="4" cols="30">{{minigoal.note}}</textarea>
+                 <button class="btn waves-effect waves-light" type="submit" name="action">Finish
+                    <i class="material-icons right">done</i>
+                  </button>
+              </form>
+            {%endif%}
+            {%if minigoal.status == status.Finished%}
+            <h5>{{minigoal.status}}!<i class="material-icons left">done</i></h5>
+              {{minigoal.finished_at}}
+              <br>
+              {{minigoal.note}}
+              <!-- <a id='edit' href="/goal/{{goal.id}}"><button>edit</button></a>
+              <form action="index.html" method="post">
+                <textarea id='note' name="note" rows="3" cols="30"></textarea>
+              </form> -->
+            {%endif%}
+              <br>
+          </div>
+          {%endfor%}
         </div>
-        {%endfor%}
         <br>
       </div>
     </div>
