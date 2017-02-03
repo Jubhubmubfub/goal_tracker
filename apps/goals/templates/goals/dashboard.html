@@ -5,26 +5,54 @@
     <title>Dashboard</title>
     {%load staticfiles%}
     <link rel="stylesheet" href="{%static 'goals/css/dashboard_styles.css'%}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{% static 'goals/css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="{% static 'goals/css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="{% static 'goals/js/materialize.js' %}"></script>
+    <script src="{% static 'gaols/js/init.js' %}"></script>
   </head>
   <body>
-    <div class="header">
-      <a href="/logout"><button>Logout</button></a>
+
+    <nav class="light-blue lighten-1 " role="navigation">
+      <div class="nav-wrapper container">
+        <p id="logo-container" class="brand-logo">Welcome {{request.session.user.first_name}}!</p>
+      </div>
+    </nav>
+
+    <div class="blue">
+    <a href="/goal_log" class="waves-effect waves-light btn"><i class="large material-icons left">list</i>Goal Log</a>
+    <a href="/logout"class="waves-effect waves-light btn right"><i class="large material-icons left">trending_down</i>Log out</a>
+
       {%if messages%}
         {%for message in messages%}
           <span style="color:green">{{message}}</span>
         {%endfor%}
       {%endif%}
-      <h1>Welcome {{request.session.user.first_name}}!</h1>
-    </div>
-    <div class="banner">
       <h1>Current Goal: {{recent.goal.name}}</h1>
       <h3>Last Completed Goal: {{recent.name}}</h3>
-      <h3>Time since last Completed Goal: 23 hours</h3>
+      <!-- <h3>Time since last Completed Goal: 23 hours</h3> -->
       <h3>Current Goal: {{current.name}}</h3>
-      <a href="/goal_log"><button>Goal Log</button></a>
-    </div>
     <div class="body">
       <h1>Goals</h1>
+
+      <div class="row">
+        <div class="col s12 m6">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">Card Title</span>
+              <p>I am a very simple card. I am good at containing small bits of information.
+              I am convenient because I require little markup to use effectively.</p>
+            </div>
+            <div class="card-action">
+              <a href="#">This is a link</a>
+              <a href="#">This is a link</a>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {%for goal in goals%}
       <div class="card">
@@ -45,6 +73,7 @@
 
       <a href="/new_goal"><button>Track New Goal</button></a>
     </div>
+  </div>
 
   </body>
 </html>

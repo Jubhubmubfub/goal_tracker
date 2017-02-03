@@ -5,27 +5,138 @@
     <title>Track New Goal</title>
     {%load staticfiles%}
     <link rel="stylesheet" href="{%static 'goals/css/new_goal_styles.css'%}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{% static 'goals/css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="{% static 'goals/css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="{% static 'goals/js/materialize.js' %}"></script>
+    <script src="{% static 'gaols/js/init.js' %}"></script>
     <script type="text/javascript">
     $(document).ready(function(){
       //append a new minigoal section
       var count = 0
       $('#add_minigoal').click(function(){
         count = count+1
-        $('#minigoals').append('<br>MiniGoal: <input type="text" name="mini_name'+count+'" value=""><br>Description: <textarea name="description'+count+'" rows="8" cols="80"></textarea><br>Timespan: <select name="time_increment'+count+'">{% for number in numbers %}<option value="{{number}}">{{ number }}</option>{% endfor %}</select><select name="time'+count+'">{% for time in times %}<option value="{{time}}">{{time}}</option>{% endfor %}</select><br>Repeating: Yes<input type="radio" name="repeating'+count+'" value="Yes">No<input type="radio" name="repeating'+count+'" value="No" checked="checked"><br># of Times:<select name="repeat_times'+count+'">{%for number in numbers2%}<option value="{{number}}">{{number}}</option>{%endfor%}</select><br>');
+        $('#minigoals').append('<div class="row"><div class="input-field col s6"><input type="text" name="mini_name'+count+'" class="validate"><label for="first_name">MiniGoal</label></div></div><div class="row"><div class="input-field col s12"><textarea id="description" name="mini_description'+count+'" class="materialize-textarea"></textarea><label>MiniGoal Description (Optional)</label></div></div><label>TimeSpan</label><br><div class="input-field col s1"><select class="browser-default" name="time_increment'+count+'">{%for number in numbers%}<option value="{{number}}">{{number}}</option>{%endfor%}</select></div><div class="input-field col s2"><select class="browser-default" name="time'+count+'">{%for time in times%}<option value="{{time}}">{{time}}</option>{%endfor%}</select></div><div class="row"><div class="input-field col s12"><label for="">Repeating?</label><div class="input-field col s12"><br><p><input type="radio" name="repeating'+count+'"  id="test1'+count+'"/><label for="test1'+count+'">Yes</label></p><p><input type="radio" name="repeating'+count+'" checked="checked" id="test2'+count+'"/><label for="test2'+count+'">No</label></p></div></div><br><br><label># of times</label><br><div class="input-field col s1"><select class="browser-default" name="repeat_times'+count+'">{%for number in numbers2%}<option value="{{number}}">{{number}}</option>{%endfor%}</select></div></div>');
+
       $('#form').attr('action','/create_goal/'+count)
       });
     });
     </script>
   </head>
   <body>
-    <div class="banner">
-      <a href="/dashboard"><button>Dashboard</button></a>
-      <a href="/logout"><button>Logout</button></a>
-      <h1>Track goal</h1>
-    </div>
-    <div class="body">
-      <form id='form' action="/create_goal/0" method="post">
+
+    <nav class="light-blue lighten-1 " role="navigation">
+      <div class="nav-wrapper container">
+        <p id="logo-container" class="brand-logo">Track New Goal</p>
+      </div>
+    </nav>
+
+    <div class="teal">
+
+      <a href="/dashboard" class="waves-effect waves-light btn"><i class="material-icons left">dashboard</i>Dashboard</a>
+      <a href="/goal_log" class="waves-effect waves-light btn"><i class="large material-icons left">list</i>Goal Log</a>
+      <a href="/logout"class="waves-effect waves-light btn right"><i class="large material-icons left">trending_down</i>Log out</a>
+
+          <div class="container">
+            <div class="row">
+              {%if messages%}
+              {%for message in messages%}
+              <span style='color:blue'>{{message}}</span><br>
+              {%endfor%}
+              {%endif%}
+              <form id='form' action="/create_goal/0" method='POST' class="col s8">
+                {%csrf_token%}
+                <div class="row">
+                  <div class="input-field col s6">
+                     <input placeholder="Goal Name" id="goal" type="text" name="name" class="validate">
+                     <label for="first_name">Goal</label>
+                  </div>
+                </div>
+                 <div class="row">
+                   <div class="input-field col s12">
+                    <textarea id="description" placeholder="Goal Description" name="description" class="materialize-textarea"></textarea>
+                    <label for="textarea1">Description</label>
+                   </div>
+                 </div>
+
+             <div id=minigoals>
+
+                 <div class="row">
+                   <div class="input-field col s6">
+                      <input placeholder="MiniGoal Name" type="text" name="mini_name" class="validate">
+                      <label for="first_name">MiniGoal</label>
+                   </div>
+                 </div>
+                 <div class="row">
+                   <div class="input-field col s12">
+                    <textarea id="description" placeholder="MiniGoal Description" name="mini_description" class="materialize-textarea"></textarea>
+                    <label>MiniGoal Description (Optional)</label>
+                   </div>
+                 </div>
+                 <label>TimeSpan</label><br>
+                 <div class="input-field col s1">
+                    <select class='browser-default' name="time_increment">
+                      {%for number in numbers%}
+                        <option value="{{number}}">{{number}}</option>
+                      {%endfor%}
+                    </select>
+                  </div>
+                 <div class="input-field col s2">
+                    <select class='browser-default' name="time">
+                      {%for time in times%}
+                        <option value="{{time}}">{{time}}</option>
+                      {%endfor%}
+                    </select>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <label for="">Repeating?</label>
+                      <div class="input-field col s12">
+                        <br>
+                      <p>
+                        <input type="radio" name="repeating" id="test1" />
+                        <label for="test1">Yes</label>
+                      </p>
+                      <p>
+                        <input type="radio" name="repeating" checked='checked' id="test2"/>
+                        <label for="test2">No</label>
+                      </p>
+                    </div>
+                  </div>
+                  <br><br>
+                  <label># of times</label><br>
+                  <div class="input-field col s1">
+                     <select class='browser-default' name="repeat_times">
+                       {%for number in numbers2%}
+                         <option value="{{number}}">{{number}}</option>
+                       {%endfor%}
+                     </select>
+                   </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s12">
+                  <br>
+                  <a id="add_minigoal" class="waves-effect waves-light btn"><i class="large material-icons left">queue
+                  </i>Add MiniGoal</a>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s12">
+                  <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                    <i class="material-icons right">send</i>
+                  </button>
+                </div>
+              </div>
+               </form>
+           </div>
+         </div>
+
+    <!-- <div class="body">
+      <form id='form1' action="/create_goal/0" method="post">
         {%csrf_token%}
         {%if messages%}
           {%for message in messages%}
@@ -36,7 +147,7 @@
         Goal Description: <textarea name="description" rows="8" cols="80"></textarea>
         <br>
         <br>
-        <div id='minigoals'>
+        <div id='minigoals1'>
           Mini Goal: <input type="text" name="mini_name" value=""><br>
           Description: <textarea name="mini_description" rows="8" cols="80"></textarea><br>
           Timespan: <select name="time_increment">
@@ -60,9 +171,9 @@
           </select>
         </div>
         <br>
-        <button type='button' id="add_minigoal">Add mini-goal</button><br><br>
+        <button type='button' id="add_minigoal1">Add mini-goal</button><br><br>
         <input type="submit" name="" value="Track Goal!">
       </form>
-    </div>
+    </div> -->
   </body>
 </html>

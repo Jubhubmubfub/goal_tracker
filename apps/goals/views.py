@@ -241,7 +241,7 @@ def create_goal(request,extra_minigoals):
             Time.objects.create(increment=request.POST['time_increment'],repeat_times=request.POST['repeat_times'],time_type=request.POST['time'],repeating=request.POST['repeating'],minigoal=NewMiniGoal)
             if extra_minigoals > 0:
                 for i in range(1,int(extra_minigoals)+1):
-                    NewMiniGoal = MiniGoal.objects.create(name=request.POST['mini_name{}'.format(i)],description=request.POST['description{}'.format(i)], goal=newGoal, user=user,status="Pending")
+                    NewMiniGoal = MiniGoal.objects.create(name=request.POST['mini_name{}'.format(i)],description=request.POST['mini_description{}'.format(i)], goal=newGoal, user=user,status="Pending")
                     Time.objects.create(increment=request.POST['time_increment{}'.format(i)],repeat_times=request.POST['repeat_times{}'.format(i)],time_type=request.POST['time{}'.format(i)],repeating=request.POST['repeating{}'.format(i)],minigoal=NewMiniGoal)
 
 
